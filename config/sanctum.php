@@ -32,8 +32,7 @@ return [
     | token that's present on an incoming request for authentication.
     |
     */
-
-    'guard' => ['web'],
+    // 'guard' => ['sanctum'],
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +45,7 @@ return [
     |
     */
 
-    'expiration' => null,
+    'expiration' => 525600,
 
     /*
     |--------------------------------------------------------------------------
