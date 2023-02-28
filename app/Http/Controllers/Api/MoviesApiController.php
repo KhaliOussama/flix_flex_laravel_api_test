@@ -11,9 +11,10 @@ class MoviesApiController extends ResponseApiController
     /* get all movies api function*/
     public function getAllMovies(Request $request)
     {
-        $response = Http::get('http://api.themoviedb.org/3/discover/movie?api_key=YOUR_TMDB_API_KEY');
-        $top_five = collect($response->json())->sortByDesc('vote_average')->take(5);
-        $data['movies'] = array_chunk($response->json(),10);
+        $response = Http::get('http://api.themoviedb.org/3/discover/movie?api_key=YOUR_TMDB_API_KEY');        
+        $order_results_by_vote_average = json_decode(collect($response->json()['results'])->sortByDesc('vote_average'));
+        $top_five = array_slice((array) $order_results_by_vote_average, 0, 5);
+        $data['movies'] = array_chunk($response->json()['results'],10);
         $data['top_five'] = $top_five;
         return $this->sendResponse($data, 'data fetched successfully.');
     }
